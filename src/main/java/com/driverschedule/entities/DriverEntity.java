@@ -13,13 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class AlfredEntity extends BaseEntity {
+public class DriverEntity extends BaseEntity {
 
 	private String name;
 	private String lat;
 	private String lng;
 	private Date lastUpdate;
 		
-	@OneToMany (mappedBy = "alfred")
+	@OneToMany (mappedBy = "driver")
 	private List<ScheduleEntity> schedules = new ArrayList<>();
 }

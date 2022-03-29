@@ -20,5 +20,5 @@ public class ScheduleEntity extends BaseEntity{
 	private Integer dropLng;
 	
 	@ManyToOne
-	private AlfredEntity alfred;
+	private DriverEntity driver;
 }

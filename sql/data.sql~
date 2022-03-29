@@ -1,0 +1,22 @@
+delete from alfred_entity;
+
+insert into alfred_entity (id, name) values (1, 'Juan Alvarez');
+insert into alfred_entity (id, name) values (2, 'María Rodríguez');
+insert into alfred_entity (id, name) values (3, 'Mafe Gómez');
+insert into alfred_entity (id, name) values (4, 'Carlos Parra');
+insert into alfred_entity (id, name) values (5, 'Lucas Vega');
+insert into alfred_entity (id, name) values (6, 'Ana Galindo');
+insert into alfred_entity (id, name) values (7, 'Juan Hernandez');
+insert into alfred_entity (id, name) values (8, 'Lucía Mora');
+insert into alfred_entity (id, name) values (9, 'Elvia García');
+insert into alfred_entity (id, name) values (10, 'Gustavo Cuellar');
+insert into alfred_entity (id, name) values (11, 'Rosa Bejarano');
+insert into alfred_entity (id, name) values (12, 'Lida Trujillo');
+insert into alfred_entity (id, name) values (13, 'Angela Silva');
+insert into alfred_entity (id, name) values (14, 'Franklin Gutierrez');
+insert into alfred_entity (id, name) values (15, 'Lina Toro');
+insert into alfred_entity (id, name) values (16, 'Andrea Serna');
+insert into alfred_entity (id, name) values (17, 'Luis Trujillo');
+insert into alfred_entity (id, name) values (18, 'Elena Marquez');
+insert into alfred_entity (id, name) values (19, 'Sergio Sierra');
+insert into alfred_entity (id, name) values (20, 'Nancy Pérez');

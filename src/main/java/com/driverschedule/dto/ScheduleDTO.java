@@ -14,5 +14,5 @@ public class ScheduleDTO {
 	private Integer dragLng;
 	private Integer dropLat;
 	private Integer dropLng;
-	private AlfredDTO alfred;
+	private DriverDTO alfred;
 }

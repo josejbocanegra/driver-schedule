@@ -12,27 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.driverschedule.dto.AlfredDetailDTO;
-import com.driverschedule.entities.AlfredEntity;
-import com.driverschedule.services.AlfredService;
+import com.driverschedule.dto.DriverDetailDTO;
+import com.driverschedule.entities.DriverEntity;
+import com.driverschedule.services.DriverService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
-@RequestMapping("/api/alfreds")
-public class AlfredController {
+@RequestMapping("/api/drivers")
+public class DriverController {
 	
 	@Autowired
-	AlfredService alfredService;
+	DriverService driverService;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<AlfredDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
-		List<AlfredEntity> drivers = alfredService.getAlfreds();
-		return modelMapper.map(drivers, new TypeToken<List<AlfredDetailDTO>>() {
+	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
+		List<DriverEntity> drivers = driverService.getDrivers();
+		return modelMapper.map(drivers, new TypeToken<List<DriverDetailDTO>>() {
 		}.getType());
 	}
 }

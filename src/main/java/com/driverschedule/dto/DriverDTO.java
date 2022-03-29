@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class AlfredDTO {
+public class DriverDTO {
 	private Long id;
 	private String name;
 	private String lat;

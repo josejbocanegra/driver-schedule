@@ -8,6 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AlfredDetailDTO extends AlfredDTO {
+public class DriverDetailDTO extends DriverDTO {
 	private List<ScheduleDTO> schedules = new ArrayList<>();
 }
