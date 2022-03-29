@@ -42,31 +42,30 @@ public class DriverService {
 	@Transactional
 	public List<DriverEntity> getDrivers() throws JsonMappingException, JsonProcessingException {
 		log.info("Getting all drivers");
-		List<DriverEntity> driversList = new ArrayList<>();
-
+		
 		PointDTO response = getClient().get()
 	        .uri(URL)
 	        .retrieve()
 	        .bodyToMono(PointDTO.class)
 	        .block();
 		
-		for(int i = 0; i < response.getAlfreds().size(); i++) {
-			log.info("in the loop");
-			DriverDTO driver = response.getAlfreds().get(i);
-			Optional<DriverEntity> driverEntity = driverRepository.findById(driver.getId());
-			if(!driverEntity.isEmpty()) {
-				driverEntity.get().setLat(driver.getLat());
-				driverEntity.get().setLng(driver.getLng());
-				driversList.add(driverEntity.get());
+		List<DriverEntity> driversList = driverRepository.findAll();
+		
+		for (DriverEntity driverEntity : driversList) {
+			Optional<DriverDTO> driverDTO = response.getAlfreds().stream()
+        		.filter(alfred -> driverEntity.getId() == alfred.getId())
+                .findFirst();
+
+			if(driverDTO.isPresent()) {
+				driverEntity.setLat(driverDTO.get().getLat());
+				driverEntity.setLng(driverDTO.get().getLng());
+				driverEntity.setLastUpdate(driverDTO.get().getLastUpdate());
 			}
-		}
-			    
+		}			    
 		return driversList;
 	}	
 		
-	public float getDistanceBetweenTwoPoings(int x1, int y1) {
-		int x2 = 0;
-		int y2 = 0;
+	public float getDistanceBetweenTwoPoints(int x1, int x2, int y1, int y2) {
 		float distance = (float) Math.sqrt( Math.pow((x2 - x1), 2)  +  Math.pow((y2 - y1), 2) );
 		return distance;
 	}
