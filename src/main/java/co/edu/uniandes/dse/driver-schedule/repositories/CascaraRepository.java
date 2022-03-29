@@ -1,4 +1,4 @@
-package co.edu.uniandes.dse.ZZZ.repositories;
+package co.edu.uniandes.dse.driver-schedule.repositories;
 
 import org.springframework.stereotype.Repository;
 
