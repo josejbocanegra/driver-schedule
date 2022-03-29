@@ -7,5 +7,5 @@ import lombok.Data;
 
 @Data
 public class PointDTO {
-	private List<AlfredDTO> alfreds = new ArrayList<>();
+	private List<AlfredDTO> alfreds = new ArrayList<AlfredDTO>();
 }
