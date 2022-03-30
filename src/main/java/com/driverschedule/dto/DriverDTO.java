@@ -11,4 +11,5 @@ public class DriverDTO {
 	private String lat;
 	private String lng;
 	private Date lastUpdate;
+	private Float distance;
 }

@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "d5652553-50a7-4682-8f71-92d1810b1b96",
+		"name": "Driver Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/drivers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all drivers with distance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/drivers?lat=10&lng=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "10"
+						},
+						{
+							"key": "lng",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

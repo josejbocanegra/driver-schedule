@@ -8,11 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ScheduleDTO {
+	private Long id;
 	private Date date;
-	private Date startTime;
-	private Integer dragLat;
-	private Integer dragLng;
-	private Integer dropLat;
-	private Integer dropLng;
-	private DriverDTO alfred;
+	
+	private Boolean isAvailable;
+	private DriverDTO driver;
+	private ServiceDTO service;
 }

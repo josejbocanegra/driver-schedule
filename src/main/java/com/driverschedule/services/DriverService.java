@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.geo.Distance;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import com.driverschedule.dto.DriverDTO;
 import com.driverschedule.dto.PointDTO;
 import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.repositories.DriverRepository;
+import com.driverschedule.utils.DistanceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -26,6 +29,9 @@ public class DriverService {
 	@Autowired
 	DriverLocationService driverLocationService;
 	
+	@Autowired
+	DistanceService distanceService;
+	
 	@Transactional
 	public DriverEntity createDriver(DriverEntity driver) {
 		log.info("Creating driver");
@@ -33,7 +39,7 @@ public class DriverService {
 	}	
 	
 	@Transactional
-	public List<DriverEntity> getDrivers() throws JsonMappingException, JsonProcessingException {
+	public List<DriverEntity> getDrivers(String lat, String lng) throws JsonMappingException, JsonProcessingException {
 		log.info("Getting all drivers");
 		
 		PointDTO pointDTO = driverLocationService.getDriverLocation();
@@ -49,14 +55,16 @@ public class DriverService {
 				driverEntity.setLat(driverDTO.get().getLat());
 				driverEntity.setLng(driverDTO.get().getLng());
 				driverEntity.setLastUpdate(driverDTO.get().getLastUpdate());
+				
+				if(lat != null && lng != null) {
+					float distance = distanceService.getDistanceBetweenTwoPoints(Integer.parseInt(lat), Integer.parseInt(lng), Integer.parseInt(driverDTO.get().getLat()), Integer.parseInt(driverDTO.get().getLng()));
+					driverEntity.setDistance(distance);
+				}
 			}
-		}			    
-		return driversList;
+		}			  
+		return driverRepository.findAll(Sort.by(Sort.Direction.ASC, "distance"));
 	}	
 		
-	public float getDistanceBetweenTwoPoints(int x1, int x2, int y1, int y2) {
-		float distance = (float) Math.sqrt( Math.pow((x2 - x1), 2)  +  Math.pow((y2 - y1), 2) );
-		return distance;
-	}
+	
 	
 }

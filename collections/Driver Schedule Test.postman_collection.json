@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "3b6dac5b-3da9-4c97-bc90-9b04710b7310",
+		"name": "Driver Schedule Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all schedules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all schedules by date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules?date=2022-03-29",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2022-03-29"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T10:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 10, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service in a non-available slot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T10:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 10, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service with a non-valid driver",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T10:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 10, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/0/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"0",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
