@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
 import lombok.Setter;
+import uk.co.jemos.podam.common.PodamExclude;
 
 @Getter
 @Setter
@@ -28,7 +29,8 @@ public class DriverEntity {
 	private String lng;
 	private Date lastUpdate;
 	private Float distance;
-		
+	
+	@PodamExclude
 	@OneToMany (mappedBy = "driver")
 	private List<ScheduleEntity> schedules = new ArrayList<>();
 }
