@@ -62,7 +62,4 @@ public class DriverService {
 		}			  
 		return driverRepository.findAll(Sort.by(Sort.Direction.ASC, "distance"));
 	}	
-		
-	
-	
 }

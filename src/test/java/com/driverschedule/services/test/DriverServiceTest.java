@@ -95,4 +95,20 @@ class DriverServiceTest {
 			assertTrue(found);
 		}
 	}
+	
+	@Test
+	void testGetDriversWithDistance() throws JsonMappingException, JsonProcessingException {
+		List<DriverEntity> drivers = driverService.getDrivers("10", "10");
+		assertEquals(driverList.size(), drivers.size());
+
+		for (DriverEntity driverEntity : driverList) {
+			boolean found = false;
+			for (DriverEntity storedEntity : drivers) {
+				if (driverEntity.getId().equals(storedEntity.getId())) {
+					found = true;
+				}
+			}
+			assertTrue(found);
+		}
+	}
 }
