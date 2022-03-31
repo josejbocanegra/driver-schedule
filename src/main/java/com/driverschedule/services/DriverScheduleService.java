@@ -64,7 +64,7 @@ public class DriverScheduleService {
 		
 		List<ScheduleEntity> existentSchedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());
 		if(!existentSchedules.isEmpty()) {
-			if(existentSchedules.get(0).getIsAvailable() == true) {
+			if(existentSchedules.get(0).getIsAvailable()) {
 				existentSchedules.get(0).setIsAvailable(false);
 				
 				ServiceEntity service = new ServiceEntity();
