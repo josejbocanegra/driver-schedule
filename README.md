@@ -209,3 +209,17 @@ La siguiente es la documentación del API
 | Driver Schedule | https://documenter.getpostman.com/view/8840688/UVyrTvr4 |
 | Driver          | https://documenter.getpostman.com/view/8840688/UVyrTvr5 |
 | Schedule        | https://documenter.getpostman.com/view/8840688/UVyrTvr6 |
+
+## Calidad del código
+
+En análisis estático del código en SonarQube presenta las siguientes métricas:
+
+- Quality Gate Status: Passed
+- Bugs: 0
+- Vulerabilies: 0
+- Security Hotspots: 100% reviewed
+- TechDebt: 0 min
+- Code Smells: 0
+- Coverage: 71.5%
+- Unit Tests: 15
+- Duplications: 0.0%

@@ -295,4 +295,17 @@ class DriverScheduleServiceTest {
 		assertNotNull(schedules);
 	}
 	
+	@Test
+	void testgetSchedulesNullDate() throws EntityNotFoundException, IllegalOperationException {
+		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driver.getId(), null);
+		assertNotNull(schedules);
+	}
+	
+	@Test
+	void testgetSchedulesInvalidDriver() {
+		assertThrows(EntityNotFoundException.class, ()->{
+			driverScheduleService.getSchedules(0L, availableSchedule.getDate());
+		});
+	}
+	
 }
