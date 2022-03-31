@@ -75,7 +75,7 @@ Body
 
 En la respuesta se devuelve la entrada de la agenda con el id del servicio (pedido) asignado.
 
-```JSON
+```
 Response
 {
     "id": 1,
