@@ -41,8 +41,25 @@ public class DriverScheduleService {
 	public ScheduleEntity createSchedule(Long driverId, ScheduleEntity schedule) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Creating schedule");
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
+		
 		if(driver.isEmpty()) {
 			throw new EntityNotFoundException("The driver with the given id was not found");
+		}
+		
+		if(schedule.getService().getDragLat() < 0 || schedule.getService().getDragLat() >100) {
+			throw new IllegalOperationException("The drag latitude is out of range");
+		}
+		
+		if(schedule.getService().getDragLng() < 0 || schedule.getService().getDragLng() >100) {
+			throw new IllegalOperationException("The drag longitude is out of range");
+		}
+		
+		if(schedule.getService().getDropLat() < 0 || schedule.getService().getDropLat() >100) {
+			throw new IllegalOperationException("The drop latitude is out of range");
+		}
+		
+		if(schedule.getService().getDropLng() < 0 || schedule.getService().getDropLng() >100) {
+			throw new IllegalOperationException("The drop longitude is out of range");
 		}
 		
 		List<ScheduleEntity> existentSchedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());

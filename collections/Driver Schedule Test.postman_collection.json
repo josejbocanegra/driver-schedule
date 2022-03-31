@@ -7,6 +7,17 @@
 	"item": [
 		{
 			"name": "Get all schedules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"GET request doesn't fail\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -29,6 +40,17 @@
 		},
 		{
 			"name": "Get all schedules by date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"GET request doesn't fail\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -57,12 +79,25 @@
 		},
 		{
 			"name": "Schedule a service",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"schedule_id\", data.id);",
+							"tests[\"POST request doesn't fail\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"date\": \"2022-03-29T10:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 10, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"raw": "{\n    \"date\": \"2022-03-29T08:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 10, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,6 +123,17 @@
 		},
 		{
 			"name": "Schedule a service in a non-available slot",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -119,6 +165,17 @@
 		},
 		{
 			"name": "Schedule a service with a non-valid driver",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -142,6 +199,174 @@
 						"api",
 						"drivers",
 						"0",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service with a non-valid drag latitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T15:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 150, \n\t    \"dragLng\": 20,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service with a non-valid drag longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T15:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 20, \n\t    \"dragLng\": 200,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service with a non-valid drop latitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T15:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 20, \n\t    \"dragLng\": 10,\n\t    \"dropLat\": 200, \n\t    \"dropLng\": 30\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule a service with a non-valid drop longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-03-29T15:00:00-05\",\n\t\"service\": {\n        \"dragLat\": 20, \n\t    \"dragLng\": 10,\n\t    \"dropLat\": 20, \n\t    \"dropLng\": 130\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
 						"schedules"
 					]
 				}

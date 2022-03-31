@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.driverschedule.dto.DriverDetailDTO;
+import com.driverschedule.dto.DriverDistanceDetailDTO;
 import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.services.DriverService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,11 +29,19 @@ public class DriverController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@GetMapping
+	@GetMapping("/all")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
 		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
 		return modelMapper.map(drivers, new TypeToken<List<DriverDetailDTO>>() {
+		}.getType());
+	}
+	
+	@GetMapping("/byDistance")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<DriverDistanceDetailDTO> findAllByDistance(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
+		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
+		return modelMapper.map(drivers, new TypeToken<List<DriverDistanceDetailDTO>>() {
 		}.getType());
 	}
 }

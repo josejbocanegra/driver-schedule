@@ -41,7 +41,7 @@ public class DriverScheduleController {
 	}
 	
 	@GetMapping(value = "/{driverId}/schedules")
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(code = HttpStatus.OK)
 	public List<ScheduleDTO> findAll(@PathVariable("driverId") Long driverId, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) throws EntityNotFoundException, IllegalOperationException {
 		List<ScheduleEntity> schedules = scheduleService.getSchedules(driverId, date);
 		return modelMapper.map(schedules, new TypeToken<List<ScheduleDTO>>() {

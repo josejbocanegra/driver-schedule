@@ -1,10 +1,12 @@
-# Ejecución del back
+# Test Backend Senior
+
+## Ejecución del back
 
 ## Herramientas necesarias
 
 Para la ejecución del back debe descargar e instalar las herramientas que se realacionan a continuación:
 
-| Herramienta    | Version |
+| Herramienta    | Version | Enlace de descarga                                  |
 | -------------- | ------- | --------------------------------------------------- |
 | Java JDK       | 11      | https://www.oracle.com/java/technologies/downloads/ |
 | Spring Tools\* | 4       | https://spring.io/tools                             |
@@ -48,4 +50,148 @@ Para ejecutar las pruebas unitarias de los servicios seleccione la carpeta _src/
 
 ### Pruebas del API
 
-Las pruebas del API están organizadas como colecciones de Postman. Para ejecutarlas abra Postman e mporte la carpeta _collections_ que está en la raiz del proyecto.
+Las pruebas del API están organizadas como colecciones de Postman. Para ejecutarlas abra Postman e importe la carpeta _collections_ que está en la raiz del proyecto.
+
+## Respuesta a los retos
+
+### Agendar un pedido a un conductor en una fecha y hora, y especificar su lugar de recogida (latitud y longitud) y destino.
+
+En este enpoint se agenda el pedido al conductor con el id 1. En el cuerpo de la petición se indica la hora del pedido y los detales (coordenadas para recoger y dejar el pedido).
+
+```JSON
+Request
+POST /api/drivers/1/schedules
+Body
+{
+    "date": "2022-03-29T10:00:00-05",
+	"service": {
+        "dragLat": 10,
+	    "dragLng": 20,
+	    "dropLat": 20,
+	    "dropLng": 30
+    }
+}
+```
+
+En la respuesta se devuelve la entrada de la agenda con el id del servicio (pedido) asignado.
+
+```JSON
+Response
+{
+    "id": 1,
+    "date": "2022-03-29T13:00:00.000+00:00",
+    "isAvailable": false,
+    "service": {
+        "id": 651,
+        "dragLat": 10,
+        "dragLng": 20,
+        "dropLat": 20,
+        "dropLng": 30
+    }
+}
+```
+
+### Consultar todos los pedidos asignados en un día en específico ordenados por la hora
+
+````JSON
+Rquest
+GET /api/schedules?date=2022-03-30?isAvailable=false
+```JSON
+
+En la respuesta de ejemplo se indica que para la fecha de consulta hay un servicio agendado (con el id 651) y asignado al conductor con el id 1
+
+```JSON
+Response
+[
+    {
+        "id": 1,
+        "date": "2022-03-29T13:00:00.000+00:00",
+        "isAvailable": false,
+        "service": {
+            "id": 651,
+            "dragLat": 10,
+            "dragLng": 20,
+            "dropLat": 20,
+            "dropLng": 30
+        },
+        "driver": {
+            "id": 1,
+            "name": "Juan Alvarez",
+            "lat": "1",
+            "lng": "5",
+            "lastUpdate": "2021-12-10T00:00:00.000+00:00"
+        }
+    },
+...
+]
+````
+
+### Consultar todos los pedidos de un conductor en un día en específico ordenados por la hora.
+
+En este endpoint se consultan los pedidos para el conductor con el id 1 en la fecha 2022-03-29
+
+```JSON
+Request
+GET /api/drivers/1/schedules?date=2022-03-29
+```
+
+En la respuesta se muestran las entradas de la agenda indicando si el slot está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
+
+```JSON
+Response
+[
+    {
+        "id": 1,
+        "date": "2022-03-29T13:00:00.000+00:00",
+        "isAvailable": false,
+        "service": {
+            "id": 651,
+            "dragLat": 10,
+            "dragLng": 20,
+            "dropLat": 20,
+            "dropLng": 30
+        }
+    },
+    {
+        "id": 2,
+        "date": "2022-03-29T14:00:00.000+00:00",
+        "isAvailable": true,
+        "service": null
+    },
+...
+]
+```
+
+### Hacer búsquedas del conductor que esté más cerca de un punto geográfico en una fecha y hora. (Tener en consideración los pedidos ya asignados al conductor).
+
+En este enpoint se buscan los conductores que estén más cerca a la coordenada proporcionada en el path del request.
+
+```JSON
+Request
+GET /api/drivers/byDistance/?lat=20&lng=30
+```
+
+En la respuesta listan los conductores que están más cerca a la coordenada proporcionada. El listado se organiza por la distancia (de menor a mayor). También se muestrán los pedidos que tienen asignados.
+
+```JSON
+Response
+[
+    {
+        "id": 18,
+        "name": "Elena Marquez",
+        "lat": "30",
+        "lng": "30",
+        "lastUpdate": "2021-12-10T10:00:00.000+00:00",
+        "distance": 10.0,
+        "schedules": []
+    },
+    {
+        "id": 12,
+        "name": "Lida Trujillo",
+        "lat": "12",
+        "lng": "16",
+        "lastUpdate": "2021-12-10T00:00:00.000+00:00",
+        "distance": 16.124516,
+        "schedules": []
+    },
+```

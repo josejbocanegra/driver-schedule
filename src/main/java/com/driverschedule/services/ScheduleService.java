@@ -25,16 +25,27 @@ public class ScheduleService {
 	DateService dateService;
 	
 	@Transactional
-	public List<ScheduleEntity> getSchedules(Date date) {
-		log.info("Getting schedules");
+	public List<ScheduleEntity> getSchedules(Date date, Boolean isAvailable) {
+		log.info("Getting schedules");	
 		if(date != null) {
 			log.info("Getting schedules by date " + date);
 			Date startDate = dateService.getStartTime(date);
 			Date endDate = dateService.getEndTime(date);
-				
-			return scheduleRepository.findAllByDateBetweenOrderByDateAsc(startDate, endDate);
-		}
+			if(isAvailable != null) {
+				log.info("is not null");
+				return scheduleRepository.findAllByIsAvailableAndDateBetweenOrderByDateAsc(isAvailable, startDate, endDate);
+			} else {
+				log.info("is null");
+				return scheduleRepository.findAllByDateBetweenOrderByDateAsc(startDate, endDate);
+			}			
+		} else {
+			if(isAvailable != null) {
+				return scheduleRepository.findAllByIsAvailableOrderByDateAsc(isAvailable);
+			} else {
+				return scheduleRepository.findAll();
+			}
+		} 
 		
-		return scheduleRepository.findAll();
+		
 	}
 }

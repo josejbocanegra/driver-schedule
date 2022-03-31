@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.driverschedule.dto.ScheduleDTO;
+import com.driverschedule.dto.ScheduleDriverDTO;
 import com.driverschedule.entities.ScheduleEntity;
 import com.driverschedule.services.ScheduleService;
 
@@ -30,9 +30,10 @@ public class ScheduleController {
 
 	@GetMapping
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<ScheduleDTO> findAll(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-		List<ScheduleEntity> schedules = scheduleService.getSchedules(date);
-		return modelMapper.map(schedules, new TypeToken<List<ScheduleDTO>>() {
+	public List<ScheduleDriverDTO> findAll(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, 
+			@RequestParam(required = false) Boolean isAvailable) {
+		List<ScheduleEntity> schedules = scheduleService.getSchedules(date, isAvailable);
+		return modelMapper.map(schedules, new TypeToken<List<ScheduleDriverDTO>>() {
 		}.getType());
 	}	
 }

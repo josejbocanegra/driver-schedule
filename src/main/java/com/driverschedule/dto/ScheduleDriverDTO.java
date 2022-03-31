@@ -7,10 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ScheduleDTO {
+public class ScheduleDriverDTO {
 	private Long id;
 	private Date date;
 	
 	private Boolean isAvailable;
 	private ServiceDTO service;
+	private DriverDTO driver;
 }

@@ -7,11 +7,22 @@
 	"item": [
 		{
 			"name": "Get all drivers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"GET request doesn't fail\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/drivers",
+					"raw": "http://localhost:8080/api/drivers/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -19,19 +30,31 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"drivers"
+						"drivers",
+						"all"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get all drivers with distance",
+			"name": "Get all drivers closest to a distance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"GET request doesn't fail\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/drivers?lat=10&lng=20",
+					"raw": "http://localhost:8080/api/drivers/byDistance/?lat=20&lng=30",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,16 +62,18 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"drivers"
+						"drivers",
+						"byDistance",
+						""
 					],
 					"query": [
 						{
 							"key": "lat",
-							"value": "10"
+							"value": "20"
 						},
 						{
 							"key": "lng",
-							"value": "20"
+							"value": "30"
 						}
 					]
 				}
