@@ -212,14 +212,16 @@ La siguiente es la documentación del API
 
 ## Calidad del código
 
-En análisis estático del código en SonarQube presenta las siguientes métricas:
+El análisis estático del código en SonarQube presenta las siguientes métricas:
 
-- Quality Gate Status: Passed
-- Bugs: 0
-- Vulerabilies: 0
-- Security Hotspots: 100% reviewed
-- TechDebt: 0 min
-- Code Smells: 0
-- Coverage: 71.5%
-- Unit Tests: 15
-- Duplications: 0.0%
+| Metric              | Value         |
+| ------------------- | ------------- |
+| Quality Gate Status | Passed        |
+| Bugs                | 0             |
+| Vulnerabilities     | 0             |
+| Security Hotspots   | 100% reviewed |
+| TechDebt            | 0 min         |
+| Code Smells         | 0             |
+| Coverage            | 71.5%         |
+| Unit Tests          | 15            |
+| Duplications        | 0.0%          |

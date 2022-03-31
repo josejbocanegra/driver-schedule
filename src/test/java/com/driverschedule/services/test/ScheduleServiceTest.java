@@ -29,7 +29,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @Transactional
 @Import({ScheduleService.class, DateService.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ScheduleServiceTest {
+class ScheduleServiceTest {
 	
 	@Autowired
 	private ScheduleService scheduleService;
