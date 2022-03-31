@@ -28,7 +28,7 @@ Después de instalar Postgres cree una nueva base de datos denominada _driver-sc
 
 Abra Spring Tools. El IDE le pedirá crear un Workspace. Deje la ruta por defecto, o si lo prefiere, seleccione una ruta en su sistema de archivos.
 
-Luego vaya al menú File > Import. Seleccione la opción Git -> Projects from Git (with smart import). Acá puede usar la URL para importarlo o usar la ruta de su repositorio local si lo clonó previamente.
+Luego vaya al menú File > Import. Seleccione la opción Git -> Projects from Git (with smart import). Acá puede usar la URL de este repositorio para importarlo o usar la ruta de su repositorio local si lo clonó previamente.
 
 Una vez importado, abra el archivo _src/main/resources/application.properties_ y verifique las credenciales para la conexión con la base de datos. Si sus credenciales son diferentes, haga los cambios necesarios.
 
@@ -73,7 +73,7 @@ Body
 }
 ```
 
-En la respuesta se devuelve la entrada de la agenda con el id del servicio (pedido) asignado.
+En la respuesta se devuelve la entrada de la agenda con el id del servicio (pedido) asignado. También se actualiza el estado (_isAvailable_) de la entrada para evitar que se pueda asignar otro pedido en esa misma fecha y hora con el mismo conductor.
 
 ```
 Response
@@ -93,7 +93,7 @@ Response
 
 ### Consultar todos los pedidos asignados en un día en específico ordenados por la hora
 
-En este request se consultan los pedidos del día 2022-03-30. El parámetro _isAvailable_ permite filtrar la disponibilidad o no de ese espacio.
+En este request se consultan los pedidos del día 2022-03-30. El parámetro _isAvailable_, con los valores _true_ o _false_ permite filtrar la disponibilidad o no de ese espacio.
 
 ```
 Rquest
@@ -137,7 +137,7 @@ Request
 GET /api/drivers/1/schedules?date=2022-03-29
 ```
 
-En la respuesta se muestran las entradas de la agenda, ordenadas por hora, indicando si el slot está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
+En la respuesta se muestran las entradas de la agenda, ordenadas por hora, indicando si el espacio está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
 
 ```
 Response
@@ -207,6 +207,7 @@ La siguiente es la documentación del API
 | Recurso         | URL                                                     |
 | --------------- | ------------------------------------------------------- |
 | Driver Schedule | https://documenter.getpostman.com/view/8840688/UVyrTvr4 |
+| Driver Service  | https://documenter.getpostman.com/view/8840688/UVyrTwTM |
 | Driver          | https://documenter.getpostman.com/view/8840688/UVyrTvr5 |
 | Schedule        | https://documenter.getpostman.com/view/8840688/UVyrTvr6 |
 

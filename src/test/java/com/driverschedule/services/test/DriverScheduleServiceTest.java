@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.entities.ScheduleEntity;
-import com.driverschedule.entities.ServiceEntity;
 import com.driverschedule.exceptions.EntityNotFoundException;
 import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.services.DriverScheduleService;
@@ -37,7 +36,7 @@ class DriverScheduleServiceTest {
 	
 	@Autowired
 	private DriverScheduleService driverScheduleService;
-
+	
 	@Autowired
 	private TestEntityManager entityManager;
 
@@ -78,217 +77,7 @@ class DriverScheduleServiceTest {
 		entityManager.persist(nonAvailableSchedule);
 	}
 	
-	@Test
-	void testcreateSchedule() throws EntityNotFoundException, IllegalOperationException {
-		
-		ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-		service.setId(null);
-		service.setDragLat(10);
-		service.setDragLng(10);
-		service.setDropLat(10);
-		service.setDropLng(10);
-		entityManager.persist(service);
-		
-		availableSchedule.setService(service);
-		
-		ScheduleEntity newSchedule = driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		
-		assertNotNull(newSchedule);
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDriver() {
-		assertThrows(EntityNotFoundException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(0L, availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDragLat1() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(-10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDragLat2() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(150);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDragLng1() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(-150);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDragLng2() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(150);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDropLat1() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(-150);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDropLat2() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(150);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDropLng1() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(-150);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleInvalidDropLng2() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(150);
-			entityManager.persist(service);
-			
-			availableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), availableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleSlotNotAvailable() {
-		assertThrows(IllegalOperationException.class, ()->{
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			nonAvailableSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), nonAvailableSchedule);
-		});
-	}
-	
-	@Test
-	void testcreateScheduleNoSlot() {
-		assertThrows(IllegalOperationException.class, ()->{
-			
-			entityManager.getEntityManager().createQuery("delete from ScheduleEntity").executeUpdate();
-			
-			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
-			
-			service.setId(null);
-			service.setDragLat(10);
-			service.setDragLng(10);
-			service.setDropLat(10);
-			service.setDropLng(10);
-			entityManager.persist(service);
-			
-			ScheduleEntity newSchedule = factory.manufacturePojo(ScheduleEntity.class);
-			newSchedule.setService(service);
-			
-			driverScheduleService.createSchedule(driver.getId(), newSchedule);
-		});
-	}
-	
+
 	@Test
 	void testgetSchedules() throws EntityNotFoundException, IllegalOperationException {
 		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driver.getId(), availableSchedule.getDate());
@@ -307,5 +96,4 @@ class DriverScheduleServiceTest {
 			driverScheduleService.getSchedules(0L, availableSchedule.getDate());
 		});
 	}
-	
 }
