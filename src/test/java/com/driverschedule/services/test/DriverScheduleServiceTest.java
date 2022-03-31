@@ -265,4 +265,26 @@ class DriverScheduleServiceTest {
 		});
 	}
 	
+	@Test
+	void testcreateScheduleNoSlot() {
+		assertThrows(IllegalOperationException.class, ()->{
+			
+			entityManager.getEntityManager().createQuery("delete from ScheduleEntity").executeUpdate();
+			
+			ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
+			
+			service.setId(null);
+			service.setDragLat(10);
+			service.setDragLng(10);
+			service.setDropLat(10);
+			service.setDropLng(10);
+			entityManager.persist(service);
+			
+			ScheduleEntity newSchedule = factory.manufacturePojo(ScheduleEntity.class);
+			newSchedule.setService(service);
+			
+			driverScheduleService.createSchedule(driver.getId(), newSchedule);
+		});
+	}
+	
 }
