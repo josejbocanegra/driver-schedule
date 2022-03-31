@@ -64,7 +64,7 @@ POST /api/drivers/1/schedules
 Body
 {
     "date": "2022-03-29T10:00:00-05",
-	"service": {
+    "service": {
         "dragLat": 10,
 	    "dragLng": 20,
 	    "dropLat": 20,
@@ -130,14 +130,14 @@ Response
 
 En este endpoint se consultan los pedidos para el conductor con el id 1 en la fecha 2022-03-29
 
-```JSON
+```
 Request
 GET /api/drivers/1/schedules?date=2022-03-29
 ```
 
 En la respuesta se muestran las entradas de la agenda indicando si el slot está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
 
-```JSON
+```
 Response
 [
     {
@@ -171,7 +171,7 @@ Request
 GET /api/drivers/byDistance/?lat=20&lng=30
 ```
 
-En la respuesta listan los conductores que están más cerca a la coordenada proporcionada. El listado se organiza por la distancia (de menor a mayor). También se muestrán los pedidos que tienen asignados.
+En la respuesta se listan los conductores que están más cerca a la coordenada proporcionada. El listado se organiza por la distancia (de menor a mayor). También se muestrán los pedidos que tienen asignados.
 
 ```JSON
 Response
@@ -194,4 +194,6 @@ Response
         "distance": 16.124516,
         "schedules": []
     },
+...
+]
 ```
