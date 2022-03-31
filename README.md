@@ -227,3 +227,7 @@ El análisis estático del código en SonarQube presenta las siguientes métrica
 | Unit Tests          | 26            |
 | Duplications        | 0.0%          |
 | Duplicated Blocks   | 0             |
+
+## Modelo conceptual
+
+!()[https://github.com/josejbocanegra/driver-schedule/blob/385658abad9770ef2482efac56d6bd8b6361792d/assets/class-diagram.jpeg]
