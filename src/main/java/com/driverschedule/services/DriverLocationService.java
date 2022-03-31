@@ -13,11 +13,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class DriverLocationService {
-    private String URL = "https://gist.githubusercontent.com/jeithc/96681e4ac7e2b99cfe9a08ebc093787c/raw/632ca4fc3ffe77b558f467beee66f10470649bb4/points.json";
+    private String url = "https://gist.githubusercontent.com/jeithc/96681e4ac7e2b99cfe9a08ebc093787c/raw/632ca4fc3ffe77b558f467beee66f10470649bb4/points.json";
 	
     public PointDTO getDriverLocation(){
         return getClient().get()
-	        .uri(URL)
+	        .uri(url)
 	        .retrieve()
 	        .bodyToMono(PointDTO.class)
 	        .block();
