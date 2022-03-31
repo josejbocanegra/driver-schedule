@@ -3,6 +3,8 @@ package com.driverschedule.services.test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -285,6 +287,12 @@ class DriverScheduleServiceTest {
 			
 			driverScheduleService.createSchedule(driver.getId(), newSchedule);
 		});
+	}
+	
+	@Test
+	void testgetSchedules() throws EntityNotFoundException, IllegalOperationException {
+		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driver.getId(), availableSchedule.getDate());
+		assertNotNull(schedules);
 	}
 	
 }
