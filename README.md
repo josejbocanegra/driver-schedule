@@ -166,14 +166,14 @@ Response
 
 En este enpoint se buscan los conductores que estén más cerca a la coordenada proporcionada en el path del request.
 
-```JSON
+```
 Request
 GET /api/drivers/byDistance/?lat=20&lng=30
 ```
 
 En la respuesta se listan los conductores que están más cerca a la coordenada proporcionada. El listado se organiza por la distancia (de menor a mayor). También se muestrán los pedidos que tienen asignados.
 
-```JSON
+```
 Response
 [
     {
