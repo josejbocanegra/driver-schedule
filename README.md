@@ -2,7 +2,7 @@
 
 ## Ejecución del back
 
-## Herramientas necesarias
+### Herramientas
 
 Para la ejecución del back debe descargar e instalar las herramientas que se realacionan a continuación:
 
@@ -36,7 +36,7 @@ Una vez importado, abra el archivo _src/main/resources/application.properties_ y
 
 Para la ejecución del proyecto, primero asegúrese de todas las dependencias hayan quedado instaladas. Para esto tome el archivo pom.xml > clic derecho > Maven > Update.
 
-Luego de esto y si el proyecto no tiene ningún error vaya Boot Dashboard, ubique el proyecto _driver-schedule_ y haga click en el botón start. Esto debe iniciar un servidor de aplicaciones (Tomcat) que escucha peticiones en el puerto 8080.
+Luego de esto y si el proyecto no tiene ningún error vaya al Boot Dashboard, ubique el proyecto _driver-schedule_ y haga click en el botón start. Esto debe iniciar un servidor de aplicaciones (Tomcat) que escucha peticiones en el puerto 8080.
 
 Si luego de instalar dependencias el proyecto contiene errores vaya al menú Project > Clean y haga clic en el botón Clean.
 
@@ -58,7 +58,7 @@ Las pruebas del API están organizadas como colecciones de Postman. Para ejecuta
 
 En este enpoint se agenda el pedido al conductor con el id 1. En el cuerpo de la petición se indica la hora del pedido y los detales (coordenadas para recoger y dejar el pedido).
 
-```JSON
+```
 Request
 POST /api/drivers/1/schedules
 Body
@@ -93,14 +93,14 @@ Response
 
 ### Consultar todos los pedidos asignados en un día en específico ordenados por la hora
 
-````JSON
+```
 Rquest
 GET /api/schedules?date=2022-03-30?isAvailable=false
-```JSON
+```
 
-En la respuesta de ejemplo se indica que para la fecha de consulta hay un servicio agendado (con el id 651) y asignado al conductor con el id 1
+En la respuesta de ejemplo se indica que para la fecha de consulta hay un servicio agendado (con el id 651) y asignado al conductor con el id 1.
 
-```JSON
+```
 Response
 [
     {
@@ -124,7 +124,7 @@ Response
     },
 ...
 ]
-````
+```
 
 ### Consultar todos los pedidos de un conductor en un día en específico ordenados por la hora.
 
