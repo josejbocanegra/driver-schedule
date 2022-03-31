@@ -79,19 +79,48 @@ class DriverScheduleServiceTest {
 	
 
 	@Test
-	void testgetSchedules() throws EntityNotFoundException, IllegalOperationException {
+	void testCreateSchedule() throws EntityNotFoundException, IllegalOperationException {
+		entityManager.getEntityManager().createQuery("delete from ScheduleEntity").executeUpdate();
+		ScheduleEntity newSchedule = factory.manufacturePojo(ScheduleEntity.class);
+		newSchedule.setId(null);
+		newSchedule.setIsAvailable(false);
+		newSchedule.setDriver(null);
+		newSchedule.setService(null);
+		entityManager.persist(newSchedule);
+
+		ScheduleEntity newEntity = driverScheduleService.createSchedule(driver.getId(), newSchedule);
+		assertNotNull(newEntity);
+	}
+
+	@Test
+	void testCreateScheduleInvalidDriver() {
+		assertThrows(EntityNotFoundException.class, ()->{
+			entityManager.getEntityManager().createQuery("delete from ScheduleEntity").executeUpdate();
+			ScheduleEntity newSchedule = factory.manufacturePojo(ScheduleEntity.class);
+			newSchedule.setId(null);
+			newSchedule.setIsAvailable(false);
+			newSchedule.setDriver(null);
+			newSchedule.setService(null);
+			entityManager.persist(newSchedule);
+
+			driverScheduleService.createSchedule(0L, newSchedule);
+		});
+	}
+
+	@Test
+	void testGetSchedules() throws EntityNotFoundException, IllegalOperationException {
 		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driver.getId(), availableSchedule.getDate());
 		assertNotNull(schedules);
 	}
 	
 	@Test
-	void testgetSchedulesNullDate() throws EntityNotFoundException, IllegalOperationException {
+	void testGetSchedulesNullDate() throws EntityNotFoundException, IllegalOperationException {
 		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driver.getId(), null);
 		assertNotNull(schedules);
 	}
 	
 	@Test
-	void testgetSchedulesInvalidDriver() {
+	void testGetSchedulesInvalidDriver() {
 		assertThrows(EntityNotFoundException.class, ()->{
 			driverScheduleService.getSchedules(0L, availableSchedule.getDate());
 		});

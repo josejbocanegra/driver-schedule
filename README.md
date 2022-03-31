@@ -223,7 +223,7 @@ El análisis estático del código en SonarQube presenta las siguientes métrica
 | Security Hotspots   | 100% reviewed |
 | TechDebt            | 0 min         |
 | Code Smells         | 0             |
-| Coverage            | 87.3%         |
-| Unit Tests          | 23            |
+| Coverage            | 88.1%         |
+| Unit Tests          | 26            |
 | Duplications        | 0.0%          |
 | Duplicated Blocks   | 0             |

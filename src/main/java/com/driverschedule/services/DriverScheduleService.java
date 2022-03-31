@@ -36,6 +36,9 @@ public class DriverScheduleService {
 	public ScheduleEntity createSchedule(Long driverId, ScheduleEntity schedule) throws EntityNotFoundException, IllegalOperationException {
 		log.info("Creating schedule");
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
+		if(driver.isEmpty()){
+			throw new EntityNotFoundException("The driver with the given id was not found");
+		}
 		schedule.setDriver(driver.get());
 		return scheduleRepository.save(schedule);
 	}
