@@ -60,7 +60,7 @@ En este endpoint se agenda el pedido al conductor con el id 1. En el cuerpo de l
 
 ```
 Request
-POST /api/drivers/1/schedules
+POST /api/drivers/1/services
 Body
 {
     "date": "2022-03-29T10:00:00-05",
