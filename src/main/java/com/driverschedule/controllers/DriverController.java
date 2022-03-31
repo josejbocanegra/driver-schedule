@@ -17,7 +17,6 @@ import com.driverschedule.dto.DriverDistanceDetailDTO;
 import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.services.DriverService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @RequestMapping("/api/drivers")
@@ -31,7 +30,7 @@ public class DriverController {
 
 	@GetMapping("/all")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
+	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException {
 		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
 		return modelMapper.map(drivers, new TypeToken<List<DriverDetailDTO>>() {
 		}.getType());
@@ -39,7 +38,7 @@ public class DriverController {
 	
 	@GetMapping("/byDistance")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<DriverDistanceDetailDTO> findAllByDistance(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonMappingException, JsonProcessingException {
+	public List<DriverDistanceDetailDTO> findAllByDistance(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException {
 		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
 		return modelMapper.map(drivers, new TypeToken<List<DriverDistanceDetailDTO>>() {
 		}.getType());

@@ -9,5 +9,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PointDTO {
-	private List<DriverDTO> alfreds = new ArrayList<DriverDTO>();
+	private List<DriverDTO> alfreds = new ArrayList<>();
 }

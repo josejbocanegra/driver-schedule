@@ -38,7 +38,7 @@ public class DriverService {
 	}	
 	
 	@Transactional
-	public List<DriverEntity> getDrivers(String lat, String lng) throws JsonMappingException, JsonProcessingException {
+	public List<DriverEntity> getDrivers(String lat, String lng) throws JsonProcessingException {
 		log.info("Getting all drivers");
 		
 		PointDTO pointDTO = driverLocationService.getDriverLocation();
@@ -47,7 +47,7 @@ public class DriverService {
 		
 		for (DriverEntity driverEntity : driversList) {
 			Optional<DriverDTO> driverDTO = pointDTO.getAlfreds().stream()
-        		.filter(alfred -> driverEntity.getId() == alfred.getId())
+        		.filter(alfred -> driverEntity.getId().equals(alfred.getId()))
                 .findFirst();
 
 			if(driverDTO.isPresent()) {

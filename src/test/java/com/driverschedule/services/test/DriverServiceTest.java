@@ -34,7 +34,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @Transactional
 @Import({DriverService.class, DriverLocationService.class, DistanceService.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class DriverServiceTest {
+class DriverServiceTest {
 	
 	@Autowired
 	private DriverService driverService;
