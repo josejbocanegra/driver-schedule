@@ -42,7 +42,7 @@ Si luego de instalar dependencias el proyecto contiene errores vaya al menú Pro
 
 ### Datos iniciales
 
-Para cargar los datos iniciales puede usar el script SQL que se encuentra en la ruta _sql/data.sql_. Use el programa PgAdmin o su editor preferido para conectarse a la base de datos y ejecutar el script.
+Para cargar los datos iniciales (conductores y agendas) puede usar el script SQL que se encuentra en la ruta _sql/data.sql_. Use el programa PgAdmin o su editor preferido para conectarse a la base de datos y ejecutar el script.
 
 ### Pruebas unitarias
 
@@ -56,7 +56,7 @@ Las pruebas del API están organizadas como colecciones de Postman. Para ejecuta
 
 ### Agendar un pedido a un conductor en una fecha y hora, y especificar su lugar de recogida (latitud y longitud) y destino.
 
-En este enpoint se agenda el pedido al conductor con el id 1. En el cuerpo de la petición se indica la hora del pedido y los detales (coordenadas para recoger y dejar el pedido).
+En este endpoint se agenda el pedido al conductor con el id 1. En el cuerpo de la petición se indica la hora del pedido y los detales (coordenadas para recoger y dejar el pedido).
 
 ```
 Request
@@ -66,9 +66,9 @@ Body
     "date": "2022-03-29T10:00:00-05",
     "service": {
         "dragLat": 10,
-	    "dragLng": 20,
-	    "dropLat": 20,
-	    "dropLng": 30
+        "dragLng": 20,
+        "dropLat": 20,
+        "dropLng": 30
     }
 }
 ```
@@ -92,6 +92,8 @@ Response
 ```
 
 ### Consultar todos los pedidos asignados en un día en específico ordenados por la hora
+
+En este request se consultan los pedidos del día 2022-03-30. El parámetro _isAvailable_ permite filtrar la disponibilidad o no de ese espacio.
 
 ```
 Rquest
@@ -135,7 +137,7 @@ Request
 GET /api/drivers/1/schedules?date=2022-03-29
 ```
 
-En la respuesta se muestran las entradas de la agenda indicando si el slot está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
+En la respuesta se muestran las entradas de la agenda, ordenadas por hora, indicando si el slot está disponible o no. En caso de no estar disponible se muestra el servicio (pedido) asociado.
 
 ```
 Response
@@ -164,7 +166,7 @@ Response
 
 ### Hacer búsquedas del conductor que esté más cerca de un punto geográfico en una fecha y hora. (Tener en consideración los pedidos ya asignados al conductor).
 
-En este enpoint se buscan los conductores que estén más cerca a la coordenada proporcionada en el path del request.
+En este enpoint se buscan los conductores que estén más cerca a la coordenada proporcionada en el _path_ del request.
 
 ```
 Request
@@ -197,3 +199,13 @@ Response
 ...
 ]
 ```
+
+## Documentación del API
+
+La siguiente es la documentación del API
+
+| Recurso         | URL                                                     |
+| --------------- | ------------------------------------------------------- |
+| Driver Schedule | https://documenter.getpostman.com/view/8840688/UVyrTvr4 |
+| Driver          | https://documenter.getpostman.com/view/8840688/UVyrTvr5 |
+| Schedule        | https://documenter.getpostman.com/view/8840688/UVyrTvr6 |
