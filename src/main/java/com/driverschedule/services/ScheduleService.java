@@ -32,10 +32,8 @@ public class ScheduleService {
 			Date startDate = dateService.getStartTime(date);
 			Date endDate = dateService.getEndTime(date);
 			if(isAvailable != null) {
-				log.info("is not null");
 				return scheduleRepository.findAllByIsAvailableAndDateBetweenOrderByDateAsc(isAvailable, startDate, endDate);
 			} else {
-				log.info("is null");
 				return scheduleRepository.findAllByDateBetweenOrderByDateAsc(startDate, endDate);
 			}			
 		} else {
