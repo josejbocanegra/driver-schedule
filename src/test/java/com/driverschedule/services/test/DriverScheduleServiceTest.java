@@ -1,6 +1,7 @@
 package com.driverschedule.services.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
@@ -136,6 +137,28 @@ class DriverScheduleServiceTest {
 	void testGetSchedulesInvalidDriver() {
 		assertThrows(EntityNotFoundException.class, ()->{
 			driverScheduleService.getSchedules(0L, availableSchedule.getDate());
+		});
+	}
+	
+	@Test
+	void testDeleteSchedule() throws EntityNotFoundException, IllegalOperationException {
+		Long scheduleId = availableSchedule.getId();
+		driverScheduleService.deleteSchedule(driver.getId(), availableSchedule.getId());
+		ScheduleEntity storedSchedule = entityManager.find(ScheduleEntity.class, scheduleId);
+		assertNull(storedSchedule);
+	}
+	
+	@Test
+	void testDeleteScheduleInvalidSchedule() {
+		assertThrows(EntityNotFoundException.class, ()->{
+			driverScheduleService.deleteSchedule(driver.getId(), 0L);
+		});
+	}
+	
+	@Test
+	void testDeleteScheduleInvalidDriver() {
+		assertThrows(EntityNotFoundException.class, ()->{
+			driverScheduleService.deleteSchedule(0L, availableSchedule.getId());
 		});
 	}
 }

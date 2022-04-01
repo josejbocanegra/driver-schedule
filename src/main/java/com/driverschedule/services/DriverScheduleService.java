@@ -67,4 +67,19 @@ public class DriverScheduleService {
 			return driver.get().getSchedules();
 		}
 	}
+	
+	@Transactional
+	public void deleteSchedule(Long driverId, Long scheduleId) throws EntityNotFoundException, IllegalOperationException {
+		log.info("Getting schedules for driver " + driverId);
+		Optional<DriverEntity> driver = driverRepository.findById(driverId);
+		if(driver.isEmpty()) {
+			throw new EntityNotFoundException("The driver with the given id was not found");
+		}
+		
+		Optional<ScheduleEntity> schedule = scheduleRepository.findById(scheduleId);
+		if(schedule.isEmpty()) {
+			throw new EntityNotFoundException("The schedule with the given id was not found");
+		}
+		scheduleRepository.delete(schedule.get());
+	}
 }
