@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.entities.ScheduleEntity;
 import com.driverschedule.exceptions.EntityNotFoundException;
+import com.driverschedule.exceptions.ErrorMessage;
 import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.repositories.DriverRepository;
 import com.driverschedule.repositories.ScheduleRepository;
@@ -37,14 +38,39 @@ public class DriverScheduleService {
 		log.info("Creating schedule");
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
 		if(driver.isEmpty()){
-			throw new EntityNotFoundException("The driver with the given id was not found");
+			throw new EntityNotFoundException(ErrorMessage.DRIVER_NOT_FOUND);
 		}
 		
 		List<ScheduleEntity> schedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());
 		if(!schedules.isEmpty()) {
-			throw new IllegalOperationException("There is a schedule in the selected slot");
+			throw new IllegalOperationException(ErrorMessage.ALREADY_SCHEDULE);
 		}
 		
+		schedule.setDriver(driver.get());
+		return scheduleRepository.save(schedule);
+	}
+
+	@Transactional
+	public ScheduleEntity updateSchedule(Long driverId, Long scheduleId, ScheduleEntity schedule) throws EntityNotFoundException, IllegalOperationException {
+		log.info("Updating schedule " + scheduleId);
+		Optional<DriverEntity> driver = driverRepository.findById(driverId);
+		if(driver.isEmpty()){
+			throw new EntityNotFoundException(ErrorMessage.DRIVER_NOT_FOUND);
+		}
+		
+		Optional<ScheduleEntity> scheduleEntity = scheduleRepository.findById(scheduleId);
+		if(scheduleEntity.isEmpty()) {
+			throw new EntityNotFoundException(ErrorMessage.SCHEDULE_NOT_FOUND);
+		}
+
+		if(!schedule.getDate().equals(scheduleEntity.get().getDate())){
+			List<ScheduleEntity> schedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());
+			if(!schedules.isEmpty()) {
+				throw new IllegalOperationException(ErrorMessage.ALREADY_SCHEDULE);
+			}
+		}
+
+		schedule.setId(scheduleId);
 		schedule.setDriver(driver.get());
 		return scheduleRepository.save(schedule);
 	}
@@ -54,7 +80,7 @@ public class DriverScheduleService {
 		log.info("Getting schedules for driver " + driverId);
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
 		if(driver.isEmpty()) {
-			throw new EntityNotFoundException("The driver with the given id was not found");
+			throw new EntityNotFoundException(ErrorMessage.DRIVER_NOT_FOUND);
 		}
 		
 		if(date != null) {
@@ -73,12 +99,12 @@ public class DriverScheduleService {
 		log.info("Getting schedules for driver " + driverId);
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
 		if(driver.isEmpty()) {
-			throw new EntityNotFoundException("The driver with the given id was not found");
+			throw new EntityNotFoundException(ErrorMessage.DRIVER_NOT_FOUND);
 		}
 		
 		Optional<ScheduleEntity> schedule = scheduleRepository.findById(scheduleId);
 		if(schedule.isEmpty()) {
-			throw new EntityNotFoundException("The schedule with the given id was not found");
+			throw new EntityNotFoundException(ErrorMessage.SCHEDULE_NOT_FOUND);
 		}
 		scheduleRepository.delete(schedule.get());
 	}

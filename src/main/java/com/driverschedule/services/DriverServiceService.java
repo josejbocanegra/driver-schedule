@@ -12,6 +12,7 @@ import com.driverschedule.entities.DriverEntity;
 import com.driverschedule.entities.ScheduleEntity;
 import com.driverschedule.entities.ServiceEntity;
 import com.driverschedule.exceptions.EntityNotFoundException;
+import com.driverschedule.exceptions.ErrorMessage;
 import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.repositories.DriverRepository;
 import com.driverschedule.repositories.ScheduleRepository;
@@ -38,7 +39,7 @@ public class DriverServiceService {
 		Optional<DriverEntity> driver = driverRepository.findById(driverId);
 		
 		if(driver.isEmpty()) {
-			throw new EntityNotFoundException("The driver with the given id was not found");
+			throw new EntityNotFoundException(ErrorMessage.DRIVER_NOT_FOUND);
 		}
 		
 		if(schedule.getService().getDragLat() < 0 || schedule.getService().getDragLat() >100) {
