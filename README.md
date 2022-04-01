@@ -228,7 +228,7 @@ El análisis estático del código en SonarQube presenta las siguientes métrica
 | Duplications        | 0.0%          |
 | Duplicated Blocks   | 0             |
 
-![](https://github.com/josejbocanegra/driver-schedule/blob/af302c94e4a6ba1e40f9c0468bdb5e4707ae0032/assets/sonar.jpeg)
+![](https://github.com/josejbocanegra/driver-schedule/blob/15b5cbdf3800a548832414d73fe7e3cbb7c7c35e/assets/sonar.jpeg)
 
 ## Modelo conceptual
 
