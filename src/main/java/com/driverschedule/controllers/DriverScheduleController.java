@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,13 @@ public class DriverScheduleController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ScheduleDTO create(@PathVariable("driverId") Long driverId, @RequestBody ScheduleDTO schedule) throws EntityNotFoundException, IllegalOperationException {
 		ScheduleEntity scheduleEntity = driverScheduleService.createSchedule(driverId, modelMapper.map(schedule, ScheduleEntity.class));
+		return modelMapper.map(scheduleEntity, ScheduleDTO.class);
+	}
+	
+	@PutMapping(value = "/{driverId}/schedules/{scheduleId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public ScheduleDTO create(@PathVariable("driverId") Long driverId, @PathVariable("scheduleId") Long scheduleId,  @RequestBody ScheduleDTO schedule) throws EntityNotFoundException, IllegalOperationException {
+		ScheduleEntity scheduleEntity = driverScheduleService.updateSchedule(driverId, scheduleId, modelMapper.map(schedule, ScheduleEntity.class));
 		return modelMapper.map(scheduleEntity, ScheduleDTO.class);
 	}
 	
