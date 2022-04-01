@@ -43,19 +43,19 @@ public class DriverServiceService {
 		}
 		
 		if(schedule.getService().getDragLat() < 0 || schedule.getService().getDragLat() >100) {
-			throw new IllegalOperationException("The drag latitude is out of range");
+			throw new IllegalOperationException(ErrorMessage.DRAG_LAT_OOR);
 		}
 		
 		if(schedule.getService().getDragLng() < 0 || schedule.getService().getDragLng() >100) {
-			throw new IllegalOperationException("The drag longitude is out of range");
+			throw new IllegalOperationException(ErrorMessage.DRAG_LNG_OOR);
 		}
 		
 		if(schedule.getService().getDropLat() < 0 || schedule.getService().getDropLat() >100) {
-			throw new IllegalOperationException("The drop latitude is out of range");
+			throw new IllegalOperationException(ErrorMessage.DROP_LAT_OOR);
 		}
 		
 		if(schedule.getService().getDropLng() < 0 || schedule.getService().getDropLng() >100) {
-			throw new IllegalOperationException("The drop longitude is out of range");
+			throw new IllegalOperationException(ErrorMessage.DROP_LNG_OOR);
 		}
 		
 		List<ScheduleEntity> existentSchedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());
@@ -74,10 +74,10 @@ public class DriverServiceService {
 				scheduleRepository.save(existentSchedules.get(0));
 				return existentSchedules.get(0);
 			} else {
-				throw new IllegalOperationException("The slot is not availble");
+				throw new IllegalOperationException(ErrorMessage.SLOT_NOT_AVAILABLE);
 			}
 		} else {
-			throw new IllegalOperationException("There is not a slot in the selected date and time");
+			throw new IllegalOperationException(ErrorMessage.THERE_IS_NOT_SLOT);
 		}
 	}
 }
