@@ -39,6 +39,12 @@ public class DriverScheduleService {
 		if(driver.isEmpty()){
 			throw new EntityNotFoundException("The driver with the given id was not found");
 		}
+		
+		List<ScheduleEntity> schedules = scheduleRepository.findAllByDriverIdAndDate(driverId, schedule.getDate());
+		if(!schedules.isEmpty()) {
+			throw new IllegalOperationException("There is a schedule in the selected slot");
+		}
+		
 		schedule.setDriver(driver.get());
 		return scheduleRepository.save(schedule);
 	}

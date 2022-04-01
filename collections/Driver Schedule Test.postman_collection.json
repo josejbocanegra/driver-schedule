@@ -204,6 +204,232 @@
 					"body": "[\n    {\n        \"id\": 1,\n        \"date\": \"2022-03-29T13:00:00.000+00:00\",\n        \"isAvailable\": false,\n        \"service\": {\n            \"id\": 651,\n            \"dragLat\": 10,\n            \"dragLng\": 20,\n            \"dropLat\": 20,\n            \"dropLng\": 30\n        }\n    },\n    {\n        \"id\": 2,\n        \"date\": \"2022-03-29T14:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 3,\n        \"date\": \"2022-03-29T15:00:00.000+00:00\",\n        \"isAvailable\": false,\n        \"service\": {\n            \"id\": 551,\n            \"dragLat\": 10,\n            \"dragLng\": 20,\n            \"dropLat\": 20,\n            \"dropLng\": 30\n        }\n    },\n    {\n        \"id\": 4,\n        \"date\": \"2022-03-29T16:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 5,\n        \"date\": \"2022-03-29T17:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 6,\n        \"date\": \"2022-03-29T18:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 7,\n        \"date\": \"2022-03-29T19:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 8,\n        \"date\": \"2022-03-29T20:00:00.000+00:00\",\n        \"isAvailable\": true,\n        \"service\": null\n    },\n    {\n        \"id\": 9,\n        \"date\": \"2022-03-29T21:00:00.000+00:00\",\n        \"isAvailable\": false,\n        \"service\": {\n            \"id\": 601,\n            \"dragLat\": 150,\n            \"dragLng\": 20,\n            \"dropLat\": 20,\n            \"dropLng\": 30\n        }\n    },\n    {\n        \"id\": 10,\n        \"date\": \"2022-03-29T22:00:00.000+00:00\",\n        \"isAvailable\": false,\n        \"service\": {\n            \"id\": 552,\n            \"dragLat\": 150,\n            \"dragLng\": 20,\n            \"dropLat\": 20,\n            \"dropLng\": 30\n        }\n    }\n]"
 				}
 			]
+		},
+		{
+			"name": "Create a schedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"schedule_id\", data.id);",
+							"tests[\"POST request doesn't fail\"] = responseCode.code === 201;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-05-29T08:00:00-05\",\n\t\"isAvailable\": true,\n\t\"service\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a schedule",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2022-05-29T08:00:00-05\",\n\t\"isAvailable\": true,\n\t\"service\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/drivers/1/schedules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drivers",
+								"1",
+								"schedules"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 01 Apr 2022 01:06:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2551,\n    \"date\": \"2022-05-29T13:00:00.000+00:00\",\n    \"isAvailable\": true,\n    \"service\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a schedule in the same slot",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"POST request fails\"] = responseCode.code === 412;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2022-05-29T08:00:00-05\",\n\t\"isAvailable\": true,\n\t\"service\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/drivers/1/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"drivers",
+						"1",
+						"schedules"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a schedule in the same slot",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2022-05-29T08:00:00-05\",\n\t\"isAvailable\": true,\n\t\"service\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/drivers/1/schedules",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drivers",
+								"1",
+								"schedules"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 01 Apr 2022 01:06:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"apierror\": {\n        \"status\": \"PRECONDITION_FAILED\",\n        \"timestamp\": \"31-03-2022 08:06:51\",\n        \"message\": \"There is a schedule in the selected slot\"\n    }\n}"
+				}
+			]
 		}
 	]
 }

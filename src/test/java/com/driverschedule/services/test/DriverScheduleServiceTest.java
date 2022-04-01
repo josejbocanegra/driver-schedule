@@ -106,6 +106,19 @@ class DriverScheduleServiceTest {
 			driverScheduleService.createSchedule(0L, newSchedule);
 		});
 	}
+	
+	@Test
+	void testCreateScheduleInvalidSlot() {
+		assertThrows(IllegalOperationException.class, ()->{
+			ScheduleEntity newSchedule = factory.manufacturePojo(ScheduleEntity.class);
+			newSchedule.setId(null);
+			newSchedule.setIsAvailable(true);
+			newSchedule.setService(null);
+			newSchedule.setDate(availableSchedule.getDate());
+
+			driverScheduleService.createSchedule(driver.getId(), newSchedule);
+		});
+	}
 
 	@Test
 	void testGetSchedules() throws EntityNotFoundException, IllegalOperationException {

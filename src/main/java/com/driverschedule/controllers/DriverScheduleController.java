@@ -10,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,6 +39,13 @@ public class DriverScheduleController {
 		List<ScheduleEntity> schedules = driverScheduleService.getSchedules(driverId, date);
 		return modelMapper.map(schedules, new TypeToken<List<ScheduleDTO>>() {
 		}.getType());
+	}
+	
+	@PostMapping(value = "/{driverId}/schedules")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public ScheduleDTO create(@PathVariable("driverId") Long driverId, @RequestBody ScheduleDTO schedule) throws EntityNotFoundException, IllegalOperationException {
+		ScheduleEntity scheduleEntity = driverScheduleService.createSchedule(driverId, modelMapper.map(schedule, ScheduleEntity.class));
+		return modelMapper.map(scheduleEntity, ScheduleDTO.class);
 	}
 	
 }

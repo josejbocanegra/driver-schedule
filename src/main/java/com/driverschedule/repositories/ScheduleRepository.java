@@ -10,7 +10,8 @@ import com.driverschedule.entities.ScheduleEntity;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
-	public List<ScheduleEntity> findAllByDriverIdAndDate(Long driverId, Date date);
+	List<ScheduleEntity> findAllByDriverIdAndDate(Long driverId, Date date);
+	
 	List<ScheduleEntity> findAllByDateBetweenOrderByDateAsc(Date start, Date end);
 	
 	List<ScheduleEntity> findAllByDriverIdAndDateBetweenOrderByDateAsc(Long driverId, Date start, Date end);
@@ -18,4 +19,5 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
 	List<ScheduleEntity> findAllByIsAvailableAndDateBetweenOrderByDateAsc(Boolean isAvailable, Date start, Date end);
 	
 	List<ScheduleEntity> findAllByIsAvailableOrderByDateAsc(Boolean isAvailable);
+	
 }
