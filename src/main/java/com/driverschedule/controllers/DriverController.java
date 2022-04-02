@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.driverschedule.dto.DriverDetailDTO;
 import com.driverschedule.dto.DriverDistanceDetailDTO;
 import com.driverschedule.entities.DriverEntity;
+import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.services.DriverService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -30,7 +31,7 @@ public class DriverController {
 
 	@GetMapping("/all")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException {
+	public List<DriverDetailDTO> findAll(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException, IllegalOperationException {
 		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
 		return modelMapper.map(drivers, new TypeToken<List<DriverDetailDTO>>() {
 		}.getType());
@@ -38,7 +39,7 @@ public class DriverController {
 	
 	@GetMapping("/byDistance")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<DriverDistanceDetailDTO> findAllByDistance(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException {
+	public List<DriverDistanceDetailDTO> findAllByDistance(@RequestParam(required = false) String lat, @RequestParam(required = false) String lng) throws JsonProcessingException, IllegalOperationException {
 		List<DriverEntity> drivers = driverService.getDrivers(lat, lng);
 		return modelMapper.map(drivers, new TypeToken<List<DriverDistanceDetailDTO>>() {
 		}.getType());

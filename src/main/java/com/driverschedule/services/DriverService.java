@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.driverschedule.dto.DriverDTO;
 import com.driverschedule.dto.PointDTO;
 import com.driverschedule.entities.DriverEntity;
+import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.repositories.DriverRepository;
 import com.driverschedule.utils.DistanceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,7 +38,7 @@ public class DriverService {
 	}	
 	
 	@Transactional
-	public List<DriverEntity> getDrivers(String lat, String lng) throws JsonProcessingException {
+	public List<DriverEntity> getDrivers(String lat, String lng) throws JsonProcessingException, IllegalOperationException {
 		log.info("Getting all drivers");
 		
 		PointDTO pointDTO = driverLocationService.getDriverLocation();

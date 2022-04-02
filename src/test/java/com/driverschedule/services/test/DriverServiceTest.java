@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.driverschedule.entities.DriverEntity;
+import com.driverschedule.exceptions.IllegalOperationException;
 import com.driverschedule.services.DriverLocationService;
 import com.driverschedule.services.DriverService;
 import com.driverschedule.utils.DistanceService;
@@ -81,7 +82,7 @@ class DriverServiceTest {
 	}
 	
 	@Test
-	void testGetDrivers() throws JsonMappingException, JsonProcessingException {
+	void testGetDrivers() throws JsonMappingException, JsonProcessingException, IllegalOperationException {
 		List<DriverEntity> drivers = driverService.getDrivers(null, null);
 		assertEquals(driverList.size(), drivers.size());
 
@@ -97,7 +98,7 @@ class DriverServiceTest {
 	}
 	
 	@Test
-	void testGetDriversWithDistance() throws JsonMappingException, JsonProcessingException {
+	void testGetDriversWithDistance() throws JsonMappingException, JsonProcessingException, IllegalOperationException {
 		List<DriverEntity> drivers = driverService.getDrivers("10", "10");
 		assertEquals(driverList.size(), drivers.size());
 
