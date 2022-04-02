@@ -63,7 +63,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/drivers/1/schedules",
+							"raw": "http://localhost:8080/api/drivers/1/services",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -73,12 +73,12 @@
 								"api",
 								"drivers",
 								"1",
-								"schedules"
+								"services"
 							]
 						}
 					},
-					"status": "Precondition Failed",
-					"code": 412,
+					"status": "Created",
+					"code": 201,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
@@ -103,7 +103,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 31 Mar 2022 14:29:33 GMT"
+							"value": "Thu, 31 Mar 2022 17:06:53 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -115,7 +115,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"apierror\": {\n        \"status\": \"PRECONDITION_FAILED\",\n        \"timestamp\": \"31-03-2022 09:29:33\",\n        \"message\": \"The slot is not availble\"\n    }\n}"
+					"body": "{\n    \"id\": 1,\n    \"date\": \"2022-03-29T13:00:00.000+00:00\",\n    \"isAvailable\": false,\n    \"service\": {\n        \"id\": 1853,\n        \"dragLat\": 10,\n        \"dragLng\": 20,\n        \"dropLat\": 20,\n        \"dropLng\": 30\n    }\n}"
 				}
 			]
 		},
